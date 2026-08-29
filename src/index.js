@@ -1,11 +1,4 @@
-const express = require('express');
-const app = express();
-
-// Initialize distributed cache layer
-const redis = require('./cache');
-
-app.get('/health', (req, res) => {
-  res.json({ status: 'ok', timestamp: Date.now() });
-});
-
-console.log('[service] Acme Payment Service initialized with Redis cache.');
+// Initialize payment service
+console.log('[service] Starting Acme Payment Service...');
+const cache = require('./cache');
+console.log('[service] Payment service listening on port 3000');

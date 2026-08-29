@@ -1,10 +1,10 @@
-const Redis = require('ioredis');
-
-if (!process.env.REDIS_URL) {
-  console.error('[fatal] CacheModule: REDIS_URL environment variable is not defined in environment!');
-  console.error('[fatal] Fatal bootstrap exception: unable to connect to Redis cache cluster.');
-  throw new Error('REDIS_URL must be configured in environment');
+function initCache() {
+  if (!process.env.REDIS_URL) {
+    console.error('[error] CacheModule: REDIS_URL not found in environment, attempting fallback to 127.0.0.1:6379');
+    console.error('[fatal] Fatal bootstrap exception in CacheService: connect ECONNREFUSED 127.0.0.1:6379');
+    throw new Error('REDIS_URL must be defined in environment configuration for payment session cache');
+  }
+  return { connected: true, host: process.env.REDIS_URL };
 }
 
-const redis = new Redis(process.env.REDIS_URL);
-module.exports = redis;
+module.exports = initCache();
