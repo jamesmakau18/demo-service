@@ -1,0 +1,14 @@
+{
+  "name": "acme-payment-service",
+  "version": "1.0.0",
+  "description": "Acme Core Payment Processing API",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node src/index.js",
+    "test": "node src/index.js"
+  },
+  "dependencies": {
+    "express": "^4.19.2",
+    "ioredis": "^5.4.1"
+  }
+}
