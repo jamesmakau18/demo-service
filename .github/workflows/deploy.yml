@@ -1,16 +1,17 @@
-name: Deploy Production
+name: Test Pipeline
 on: [push]
 jobs:
-  deploy:
+  test:
     runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:15
+        env:
+          POSTGRES_PASSWORD: root
+        ports: ['5432:5432']
     steps:
       - uses: actions/checkout@v4
-      - name: Setup Node
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-      - name: Start Service
-        run: npm start
-        env:
-          NODE_ENV: production
-          PORT: 3000
+      - run: npm ci
+      - run: npm run migration:run
+      - run: npm run test:unit
+      - run: npm run test:integration
